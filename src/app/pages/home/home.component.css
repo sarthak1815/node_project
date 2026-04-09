@@ -1,0 +1,213 @@
+.home-container {
+  overflow-y: auto;
+  height: 100%;
+}
+
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(139, 47, 201, 0.1), rgba(255, 107, 53, 0.1));
+}
+
+.hero-car-image {
+  position: relative;
+  display: inline-block;
+  animation: float 3s ease-in-out infinite;
+}
+
+.car-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(139, 47, 201, 0.3), transparent);
+  border-radius: 50%;
+  filter: blur(50px);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.stats-row {
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.stat-item h3 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.stat-item p {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.features-section {
+  background: var(--primary-black);
+}
+
+.feature-icon {
+  font-size: 3rem;
+}
+
+.testimonials-section {
+  background: var(--secondary-black);
+}
+
+.avatar-icon {
+  font-size: 2.5rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary-purple), var(--primary-orange));
+  border-radius: 50%;
+}
+
+.avatar-icon-large {
+  font-size: 4rem;
+  width: 80px;
+  height: 80px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary-purple), var(--primary-orange));
+  border-radius: 50%;
+}
+
+.rating {
+  font-size: 0.8rem;
+}
+
+.cta-section {
+  background: var(--primary-black);
+}
+
+.cta-card {
+  background: linear-gradient(135deg, rgba(139, 47, 201, 0.1), rgba(255, 107, 53, 0.1));
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
+
+.cta-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 12px;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--primary-purple), var(--primary-orange));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
+
+.modal.show {
+  padding-right: 0 !important;
+}
+
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* FAQ Section */
+.faq-section {
+  background: var(--secondary-black);
+}
+
+.faq-accordion {
+  margin: 0 auto;
+}
+
+.faq-item {
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+  transform: translateY(-2px);
+}
+
+.faq-question {
+  padding: 1.5rem;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+  background: rgba(139, 47, 201, 0.1);
+}
+
+.question-icon {
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+}
+
+.toggle-icon {
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+  color: var(--primary-purple);
+}
+
+.toggle-icon.rotated {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  color: var(--text-gray);
+  padding: 0 1.5rem;
+}
+
+.faq-answer.show {
+  max-height: 500px;
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+.faq-answer p {
+  padding-top: 1rem;
+  border-top: 1px solid rgba(139, 47, 201, 0.2);
+}
+
+@media (max-width: 768px) {
+  .hero-car-image span {
+    font-size: 8rem !important;
+  }
+  
+  .stats-row {
+    gap: 1.5rem;
+  }
+  
+  .stat-item h3 {
+    font-size: 1.8rem;
+  }
+  
+  .faq-question {
+    padding: 1rem;
+  }
+  
+  .faq-question h6 {
+    font-size: 0.95rem;
+  }
+}

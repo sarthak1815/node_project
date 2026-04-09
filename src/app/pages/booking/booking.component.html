@@ -1,0 +1,497 @@
+<div class="booking-container">
+  <div class="container py-5">
+    <div class="row">
+      <!-- Booking Form Section -->
+      <div class="col-lg-8 mb-4">
+        <div class="card card-custom fade-in-up">
+          <div class="card-body p-4">
+            <h2 class="mb-4">
+              <span class="gradient-text">Book Your Dream Car</span>
+            </h2>
+            
+            <form #bookingForm="ngForm" (ngSubmit)="onSubmit()">
+              <!-- Personal Information -->
+              <h5 class="mb-3 mt-4">
+                <span style="color: var(--primary-orange);">👤</span> Personal Information
+              </h5>
+              
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="firstName" class="form-label">First Name *</label>
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    id="firstName"
+                    name="firstName"
+                    [(ngModel)]="bookingData.firstName"
+                    [class.is-invalid]="submitted && bookingData.firstName.trim() === ''"
+                    required
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Enter your first name">
+                  <div class="invalid-feedback" *ngIf="submitted && bookingData.firstName.trim() === ''">
+                    First name is required
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <label for="lastName" class="form-label">Last Name *</label>
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    id="lastName"
+                    name="lastName"
+                    [(ngModel)]="bookingData.lastName"
+                    [class.is-invalid]="submitted && bookingData.lastName.trim() === ''"
+                    required
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Enter your last name">
+                  <div class="invalid-feedback" *ngIf="submitted && bookingData.lastName.trim() === ''">
+                    Last name is required
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <label for="email" class="form-label">Email Address *</label>
+                  <input 
+                    type="email" 
+                    class="form-control" 
+                    id="email"
+                    name="email"
+                    [(ngModel)]="bookingData.email"
+                    [class.is-invalid]="submitted && (!bookingData.email || !isEmailValid())"
+                    required
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Enter a valid email address">
+                  <div class="invalid-feedback" *ngIf="submitted && !isEmailValid()">
+                    Please enter a valid email address
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <label for="phone" class="form-label">Phone Number *</label>
+                  <input 
+                    type="tel" 
+                    class="form-control" 
+                    id="phone"
+                    name="phone"
+                    [(ngModel)]="bookingData.phone"
+                    [class.is-invalid]="submitted && bookingData.phone.trim() === ''"
+                    required
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Enter your contact number">
+                  <div class="invalid-feedback" *ngIf="submitted && bookingData.phone.trim() === ''">
+                    Phone number is required
+                  </div>
+                </div>
+              </div>
+
+              <!-- Car Selection -->
+              <h5 class="mb-3 mt-4">
+                <span style="color: var(--primary-purple);">🚗</span> Car Selection
+              </h5>
+              
+              <div class="row g-3">
+                <div class="col-12">
+                  <label for="carType" class="form-label">Select Car Type *</label>
+                  <select 
+                    class="form-select" 
+                    id="carType"
+                    name="carType"
+                    [(ngModel)]="bookingData.carType"
+                    [class.is-invalid]="submitted && bookingData.carType === ''"
+                    required
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Choose your preferred car type">
+                    <option value="">Choose a car type...</option>
+                    <option *ngFor="let car of carTypes" [value]="car.value">
+                      {{ car.label }} - ₹{{ car.price }}/day
+                    </option>
+                  </select>
+                  <div class="invalid-feedback" *ngIf="submitted && bookingData.carType === ''">
+                    Please select a car type
+                  </div>
+                </div>
+              </div>
+
+              <!-- Rental Details -->
+              <h5 class="mb-3 mt-4">
+                <span style="color: var(--primary-orange);">📍</span> Rental Details
+              </h5>
+              
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="pickupLocation" class="form-label">Pickup Location *</label>
+                  <select 
+                    class="form-select" 
+                    id="pickupLocation"
+                    name="pickupLocation"
+                    [(ngModel)]="bookingData.pickupLocation"
+                    [class.is-invalid]="submitted && bookingData.pickupLocation === ''"
+                    required
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Select where to pick up the car">
+                    <option value="">Select pickup location...</option>
+                    <option *ngFor="let location of locations" [value]="location">
+                      {{ location }}
+                    </option>
+                  </select>
+                  <div class="invalid-feedback" *ngIf="submitted && bookingData.pickupLocation === ''">
+                    Pickup location is required
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <label for="dropoffLocation" class="form-label">Drop-off Location *</label>
+                  <select 
+                    class="form-select" 
+                    id="dropoffLocation"
+                    name="dropoffLocation"
+                    [(ngModel)]="bookingData.dropoffLocation"
+                    [class.is-invalid]="submitted && bookingData.dropoffLocation === ''"
+                    required
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Select where to return the car">
+                    <option value="">Select drop-off location...</option>
+                    <option *ngFor="let location of locations" [value]="location">
+                      {{ location }}
+                    </option>
+                  </select>
+                  <div class="invalid-feedback" *ngIf="submitted && bookingData.dropoffLocation === ''">
+                    Drop-off location is required
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <label for="pickupDate" class="form-label">Pickup Date *</label>
+                  <input 
+                    type="date" 
+                    class="form-control" 
+                    id="pickupDate"
+                    name="pickupDate"
+                    [(ngModel)]="bookingData.pickupDate"
+                    [class.is-invalid]="submitted && bookingData.pickupDate === ''"
+                    required
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Select pickup date">
+                  <div class="invalid-feedback" *ngIf="submitted && bookingData.pickupDate === ''">
+                    Pickup date is required
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <label for="returnDate" class="form-label">Return Date *</label>
+                  <input 
+                    type="date" 
+                    class="form-control" 
+                    id="returnDate"
+                    name="returnDate"
+                    [(ngModel)]="bookingData.returnDate"
+                    [class.is-invalid]="submitted && (bookingData.returnDate === '' || !areDatesValid())"
+                    required
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Select return date">
+                  <div class="invalid-feedback" *ngIf="submitted && !areDatesValid()">
+                    Return date must be after pickup date
+                  </div>
+                </div>
+              </div>
+
+              <!-- Additional Options -->
+              <h5 class="mb-3 mt-4">
+                <span style="color: var(--primary-purple);">✨</span> Additional Options
+              </h5>
+              
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="form-check custom-checkbox">
+                    <input 
+                      class="form-check-input" 
+                      type="checkbox" 
+                      id="additionalDriver"
+                      name="additionalDriver"
+                      [(ngModel)]="bookingData.additionalDriver"
+                      data-bs-toggle="tooltip" 
+                      data-bs-placement="right" 
+                      title="Add another driver (+₹2099/day)">
+                    <label class="form-check-label" for="additionalDriver">
+                      Additional Driver <span style="color: var(--primary-orange);">(+₹2099/day)</span>
+                    </label>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="form-check custom-checkbox">
+                    <input 
+                      class="form-check-input" 
+                      type="checkbox" 
+                      id="insurance"
+                      name="insurance"
+                      [(ngModel)]="bookingData.insurance"
+                      data-bs-toggle="tooltip" 
+                      data-bs-placement="right" 
+                      title="Full coverage insurance (+₹2999/day)">
+                    <label class="form-check-label" for="insurance">
+                      Full Insurance <span style="color: var(--primary-orange);">(+₹2999/day)</span>
+                    </label>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="form-check custom-checkbox">
+                    <input 
+                      class="form-check-input" 
+                      type="checkbox" 
+                      id="gps"
+                      name="gps"
+                      [(ngModel)]="bookingData.gps"
+                      data-bs-toggle="tooltip" 
+                      data-bs-placement="right" 
+                      title="GPS Navigation system (+₹1299/day)">
+                    <label class="form-check-label" for="gps">
+                      GPS Navigation <span style="color: var(--primary-orange);">(+₹1299/day)</span>
+                    </label>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="form-check custom-checkbox">
+                    <input 
+                      class="form-check-input" 
+                      type="checkbox" 
+                      id="childSeat"
+                      name="childSeat"
+                      [(ngModel)]="bookingData.childSeat"
+                      data-bs-toggle="tooltip" 
+                      data-bs-placement="right" 
+                      title="Child safety seat (+₹899/day)">
+                    <label class="form-check-label" for="childSeat">
+                      Child Seat <span style="color: var(--primary-orange);">(+₹899/day)</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="d-grid gap-2 mt-4">
+                <button 
+                  type="submit" 
+                  class="btn btn-primary-custom btn-lg"
+                  data-bs-toggle="tooltip" 
+                  data-bs-placement="top" 
+                  title="Review and confirm your booking">
+                  Proceed to Confirmation
+                </button>
+                <button 
+                  type="button" 
+                  class="btn btn-outline-custom" 
+                  (click)="resetForm()">
+                  Reset Form
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Price Summary Section -->
+      <div class="col-lg-4">
+        <div class="card card-custom sticky-summary fade-in-up">
+          <div class="card-body p-4">
+            <h5 class="mb-4">
+              <span class="gradient-text">📊 Booking Summary</span>
+            </h5>
+            
+            <div class="summary-section">
+              <h6 class="mb-3" style="color: var(--text-light);">Selected Car</h6>
+              <div class="summary-item" *ngIf="bookingData.carType">
+                <span>{{ selectedCarType?.label }}</span>
+                <span class="text-end">₹{{ selectedCarType?.price }}/day</span>
+              </div>
+              <div *ngIf="!bookingData.carType" style="color: var(--text-gray); font-style: italic;">
+                No car selected
+              </div>
+            </div>
+
+            <div class="summary-section mt-4" *ngIf="bookingData.pickupDate && bookingData.returnDate && areDatesValid()">
+              <h6 class="mb-3" style="color: var(--text-light);">Rental Period</h6>
+              <div class="summary-item">
+                <span>Number of Days</span>
+                <span class="gradient-text fw-bold">{{ numberOfDays }}</span>
+              </div>
+            </div>
+
+            <div class="summary-section mt-4" *ngIf="bookingData.additionalDriver || bookingData.insurance || bookingData.gps || bookingData.childSeat">
+              <h6 class="mb-3" style="color: var(--text-light);">Add-ons</h6>
+              <div class="summary-item" *ngIf="bookingData.additionalDriver">
+                <span>Additional Driver</span>
+                <span>+₹2099/day</span>
+              </div>
+              <div class="summary-item" *ngIf="bookingData.insurance">
+                <span>Full Insurance</span>
+                <span>+₹2999/day</span>
+              </div>
+              <div class="summary-item" *ngIf="bookingData.gps">
+                <span>GPS Navigation</span>
+                <span>+₹1299/day</span>
+              </div>
+              <div class="summary-item" *ngIf="bookingData.childSeat">
+                <span>Child Seat</span>
+                <span>+₹899/day</span>
+              </div>
+            </div>
+
+            <hr style="border-color: rgba(139, 47, 201, 0.3); margin: 1.5rem 0;">
+
+            <div class="summary-total">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span style="font-size: 1.1rem;">Daily Rate:</span>
+                <span class="gradient-text fw-bold" style="font-size: 1.2rem;">₹{{ totalPrice }}</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <span style="font-size: 1.3rem; font-weight: 600;">Grand Total:</span>
+                <span class="gradient-text fw-bold" style="font-size: 1.8rem;">₹{{ grandTotal }}</span>
+              </div>
+            </div>
+
+            <div class="info-box mt-4">
+              <p style="font-size: 0.85rem; color: var(--text-gray); margin: 0;">
+                💡 <strong>Tip:</strong> Save 15% on rentals longer than 7 days!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div 
+  class="modal fade" 
+  [class.show]="showConfirmationModal" 
+  [style.display]="showConfirmationModal ? 'block' : 'none'"
+  tabindex="-1" 
+  aria-labelledby="confirmModalLabel" 
+  [attr.aria-hidden]="!showConfirmationModal">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">
+          🔍 Confirm Your Booking
+        </h5>
+        <button 
+          type="button" 
+          class="btn-close btn-close-white" 
+          (click)="closeConfirmationModal()"
+          aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <h6 class="text-uppercase" style="color: var(--primary-purple); font-size: 0.85rem;">Personal Details</h6>
+            <p class="mb-1"><strong>Name:</strong> {{ bookingData.firstName }} {{ bookingData.lastName }}</p>
+            <p class="mb-1"><strong>Email:</strong> {{ bookingData.email }}</p>
+            <p class="mb-1"><strong>Phone:</strong> {{ bookingData.phone }}</p>
+          </div>
+          <div class="col-md-6">
+            <h6 class="text-uppercase" style="color: var(--primary-purple); font-size: 0.85rem;">Vehicle</h6>
+            <p class="mb-1"><strong>Car Type:</strong> {{ selectedCarType?.label }}</p>
+            <p class="mb-1"><strong>Daily Rate:</strong> ₹{{ totalPrice }}</p>
+          </div>
+          <div class="col-md-6">
+            <h6 class="text-uppercase" style="color: var(--primary-purple); font-size: 0.85rem;">Rental Period</h6>
+            <p class="mb-1"><strong>Pickup:</strong> {{ bookingData.pickupDate }} at {{ bookingData.pickupLocation }}</p>
+            <p class="mb-1"><strong>Return:</strong> {{ bookingData.returnDate }} at {{ bookingData.dropoffLocation }}</p>
+            <p class="mb-1"><strong>Duration:</strong> {{ numberOfDays }} days</p>
+          </div>
+          <div class="col-md-6">
+            <h6 class="text-uppercase" style="color: var(--primary-purple); font-size: 0.85rem;">Total Cost</h6>
+            <h3 class="gradient-text mb-0">₹{{ grandTotal }}</h3>
+            <p style="color: var(--text-gray); font-size: 0.85rem;">Including all selected add-ons</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button 
+          type="button" 
+          class="btn btn-outline-custom" 
+          (click)="closeConfirmationModal()">
+          Go Back
+        </button>
+        <button 
+          type="button" 
+          class="btn btn-secondary-custom"
+          (click)="confirmBooking()">
+          Confirm Booking
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div 
+  class="modal fade" 
+  [class.show]="showSuccessModal" 
+  [style.display]="showSuccessModal ? 'block' : 'none'"
+  tabindex="-1" 
+  aria-labelledby="successModalLabel" 
+  [attr.aria-hidden]="!showSuccessModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <button 
+          type="button" 
+          class="btn-close btn-close-white" 
+          (click)="closeSuccessModal()"
+          aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body text-center py-5">
+        <div class="success-icon mb-4">🎉</div>
+        <h3 class="gradient-text mb-3">Booking Confirmed!</h3>
+        <p class="lead mb-4">Your reservation has been successfully processed.</p>
+        <p style="color: var(--text-gray);">
+          A confirmation email has been sent to <strong>{{ bookingData.email }}</strong>
+        </p>
+        <div class="confirmation-box mt-4">
+          <p class="mb-2" style="color: var(--text-gray);">Booking Reference</p>
+          <h4 class="gradient-text">#LXD{{ getRandomBookingNumber() }}</h4>
+        </div>
+      </div>
+      <div class="modal-footer border-0 justify-content-center">
+        <button 
+          type="button" 
+          class="btn btn-primary-custom"
+          (click)="closeSuccessModal()">
+          Book Another Car
+        </button>
+        <button 
+          type="button" 
+          class="btn btn-outline-custom"
+          routerLink="/"
+          (click)="closeSuccessModal()">
+          Go to Home
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Backdrops -->
+<div 
+  class="modal-backdrop fade" 
+  [class.show]="showConfirmationModal || showSuccessModal" 
+  *ngIf="showConfirmationModal || showSuccessModal"
+  (click)="showConfirmationModal ? closeConfirmationModal() : closeSuccessModal()">
+</div>

@@ -1,0 +1,219 @@
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="row align-items-center min-vh-100">
+        <div class="col-lg-6 fade-in-up">
+          <span class="badge badge-custom mb-3">Premium Car Rental</span>
+          <h1 class="display-3 fw-bold mb-4">
+            Drive Your Dream Car <span class="gradient-text">Today</span>
+          </h1>
+          <p class="lead mb-4" style="color: var(--text-gray);">
+            Experience luxury and comfort with our premium fleet of vehicles. 
+            Book now and enjoy the ride of your life.
+          </p>
+          <div class="d-flex gap-3 flex-wrap">
+            <button 
+              class="btn btn-primary-custom btn-lg"
+              routerLink="/booking"
+              data-bs-toggle="tooltip" 
+              data-bs-placement="right" 
+              title="Start your booking now">
+              Book Now
+            </button>
+            <button 
+              class="btn btn-outline-custom btn-lg"
+              routerLink="/fleet"
+              data-bs-toggle="tooltip" 
+              data-bs-placement="right" 
+              title="View all available cars">
+              View Fleet
+            </button>
+          </div>
+          
+          <div class="stats-row mt-5">
+            <div class="stat-item">
+              <h3 class="gradient-text fw-bold">500+</h3>
+              <p style="color: var(--text-gray);">Premium Cars</p>
+            </div>
+            <div class="stat-item">
+              <h3 class="gradient-text fw-bold">10K+</h3>
+              <p style="color: var(--text-gray);">Happy Clients</p>
+            </div>
+            <div class="stat-item">
+              <h3 class="gradient-text fw-bold">50+</h3>
+              <p style="color: var(--text-gray);">Locations</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-6 text-center fade-in-up">
+          <div class="hero-car-image">
+            <div class="car-glow"></div>
+            <span style="font-size: 15rem;">🚗</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold">Why Choose <span class="gradient-text">LuxeDrive</span></h2>
+        <p class="lead" style="color: var(--text-gray);">Experience the best car rental service</p>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6" *ngFor="let feature of features">
+          <div class="card card-custom h-100">
+            <div class="card-body text-center">
+              <div class="feature-icon mb-3">{{ feature.icon }}</div>
+              <h5 class="card-title">{{ feature.title }}</h5>
+              <p class="card-text">{{ feature.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold">What Our <span class="gradient-text">Clients Say</span></h2>
+        <p class="lead" style="color: var(--text-gray);">Real experiences from real customers</p>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6" *ngFor="let testimonial of testimonials">
+          <div 
+            class="card card-custom h-100"
+            (click)="openModal(testimonial)"
+            style="cursor: pointer;"
+            data-bs-toggle="tooltip" 
+            data-bs-placement="top" 
+            [attr.title]="'Click to read full review from ' + testimonial.name">
+            <div class="card-body">
+              <div class="d-flex align-items-center mb-3">
+                <div class="avatar-icon me-3">{{ testimonial.avatar }}</div>
+                <div>
+                  <h6 class="mb-0">{{ testimonial.name }}</h6>
+                  <div class="rating">
+                    <span *ngFor="let star of [1,2,3,4,5]">⭐</span>
+                  </div>
+                </div>
+              </div>
+              <p class="card-text">"{{ testimonial.comment }}"</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold">Frequently Asked <span class="gradient-text">Questions</span></h2>
+        <p class="lead" style="color: var(--text-gray);">Everything you need to know about renting with us</p>
+      </div>
+      
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="faq-accordion">
+            <div class="faq-item card-custom mb-3" *ngFor="let faq of faqs; let i = index">
+              <div 
+                class="faq-question" 
+                (click)="toggleFAQ(i)"
+                [attr.data-bs-toggle]="'tooltip'"
+                [attr.data-bs-placement]="'top'"
+                [attr.title]="'Click to ' + (faq.isOpen ? 'collapse' : 'expand')">
+                <div class="d-flex justify-content-between align-items-center">
+                  <h6 class="mb-0">
+                    <span class="question-icon">❓</span>
+                    {{ faq.question }}
+                  </h6>
+                  <span class="toggle-icon" [class.rotated]="faq.isOpen">▼</span>
+                </div>
+              </div>
+              <div class="faq-answer" [class.show]="faq.isOpen">
+                <p class="mb-0">{{ faq.answer }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section py-5 mb-5">
+    <div class="container">
+      <div class="cta-card card-custom text-center p-5">
+        <h2 class="display-5 fw-bold mb-3">Ready to Hit the Road?</h2>
+        <p class="lead mb-4" style="color: var(--text-gray);">
+          Book your dream car today and experience luxury driving
+        </p>
+        <button class="btn btn-secondary-custom btn-lg" routerLink="/booking">
+          Start Booking Now
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Testimonial Modal -->
+<div 
+  class="modal fade" 
+  [class.show]="showModal" 
+  [style.display]="showModal ? 'block' : 'none'"
+  tabindex="-1" 
+  aria-labelledby="testimonialModalLabel" 
+  [attr.aria-hidden]="!showModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="testimonialModalLabel">
+          Customer Review
+        </h5>
+        <button 
+          type="button" 
+          class="btn-close btn-close-white" 
+          (click)="closeModal()"
+          aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="selectedTestimonial">
+        <div class="text-center mb-3">
+          <div class="avatar-icon-large mb-2">{{ selectedTestimonial.avatar }}</div>
+          <h5>{{ selectedTestimonial.name }}</h5>
+          <div class="rating mb-3">
+            <span *ngFor="let star of [1,2,3,4,5]">⭐</span>
+          </div>
+        </div>
+        <p class="text-center">"{{ selectedTestimonial.comment }}"</p>
+        <p class="text-center text-muted">Thank you for choosing LuxeDrive!</p>
+      </div>
+      <div class="modal-footer">
+        <button 
+          type="button" 
+          class="btn btn-primary-custom" 
+          (click)="closeModal()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Backdrop -->
+<div 
+  class="modal-backdrop fade" 
+  [class.show]="showModal" 
+  *ngIf="showModal"
+  (click)="closeModal()">
+</div>

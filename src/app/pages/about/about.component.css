@@ -1,0 +1,68 @@
+.about-container {
+  min-height: 100vh;
+  background: var(--primary-black);
+  padding-bottom: 2rem;
+}
+
+.story-icon {
+  font-size: 15rem;
+  text-align: center;
+  animation: float 3s ease-in-out infinite;
+}
+
+.stat-icon {
+  font-size: 3.5rem;
+}
+
+.value-icon {
+  font-size: 2.5rem;
+}
+
+.team-avatar {
+  font-size: 5rem;
+  width: 120px;
+  height: 120px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary-purple), var(--primary-orange));
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.role-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--primary-purple), var(--primary-orange));
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: white;
+  font-weight: 500;
+}
+
+.stats-section {
+  background: var(--secondary-black);
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.cta-section {
+  margin-top: 3rem;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@media (max-width: 768px) {
+  .story-icon {
+    font-size: 8rem;
+  }
+  
+  .team-avatar {
+    width: 80px;
+    height: 80px;
+    font-size: 3.5rem;
+  }
+}

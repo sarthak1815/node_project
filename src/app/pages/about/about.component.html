@@ -1,0 +1,123 @@
+<div class="about-container">
+  <div class="container py-5">
+    <!-- Hero Section -->
+    <div class="text-center mb-5 fade-in-up">
+      <h1 class="display-3 fw-bold mb-3">
+        About <span class="gradient-text">LuxeDrive</span>
+      </h1>
+      <p class="lead" style="color: var(--text-gray); max-width: 800px; margin: 0 auto;">
+        India's premier luxury car rental service, delivering exceptional experiences since 2010
+      </p>
+    </div>
+
+    <!-- Our Story Section -->
+    <section class="mb-5">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-6">
+          <div class="story-icon">🚗</div>
+        </div>
+        <div class="col-lg-6">
+          <h2 class="mb-4">
+            <span class="gradient-text">Our Story</span>
+          </h2>
+          <p class="mb-3" style="color: var(--text-light);">
+            Founded in 2010, LuxeDrive began with a simple vision: to make luxury car rentals accessible 
+            to everyone in India. What started as a small fleet of 10 vehicles in Mumbai has grown into 
+            a nationwide network with over 500 premium cars across 50+ locations.
+          </p>
+          <p class="mb-3" style="color: var(--text-gray);">
+            We've served over 10,000 satisfied customers, from business executives to families on vacation, 
+            wedding parties to corporate events. Our commitment to quality, transparency, and exceptional 
+            service has made us India's most trusted luxury car rental brand.
+          </p>
+          <p style="color: var(--text-gray);">
+            Today, we continue to innovate, adding electric vehicles to our fleet and leveraging technology 
+            to provide seamless booking experiences.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section my-5 py-5">
+      <div class="row g-4 text-center">
+        <div class="col-lg-3 col-md-6" *ngFor="let stat of stats">
+          <div class="card card-custom h-100">
+            <div class="card-body">
+              <div class="stat-icon mb-3">{{ stat.icon }}</div>
+              <h2 class="gradient-text fw-bold mb-2">{{ stat.value }}</h2>
+              <p class="mb-0" style="color: var(--text-gray);">{{ stat.label }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Values Section -->
+    <section class="mb-5">
+      <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold">
+          Our <span class="gradient-text">Values</span>
+        </h2>
+        <p class="lead" style="color: var(--text-gray);">
+          What drives us to deliver excellence every day
+        </p>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-lg-6" *ngFor="let value of values">
+          <div class="card card-custom h-100">
+            <div class="card-body">
+              <div class="value-icon mb-3">{{ value.icon }}</div>
+              <h4 class="card-title">{{ value.title }}</h4>
+              <p class="card-text">{{ value.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="mb-5">
+      <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold">
+          Meet Our <span class="gradient-text">Team</span>
+        </h2>
+        <p class="lead" style="color: var(--text-gray);">
+          The people behind your perfect rental experience
+        </p>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6" *ngFor="let member of team">
+          <div class="card card-custom h-100 text-center">
+            <div class="card-body">
+              <div class="team-avatar mb-3">{{ member.avatar }}</div>
+              <h5 class="card-title">{{ member.name }}</h5>
+              <p class="role-badge mb-3">{{ member.role }}</p>
+              <p class="card-text" style="color: var(--text-gray);">{{ member.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section py-5">
+      <div class="card card-custom text-center p-5">
+        <h2 class="display-5 fw-bold mb-3">Experience the LuxeDrive Difference</h2>
+        <p class="lead mb-4" style="color: var(--text-gray);">
+          Join thousands of satisfied customers who trust us for their luxury car needs
+        </p>
+        <div class="d-flex gap-3 justify-content-center flex-wrap">
+          <button class="btn btn-primary-custom btn-lg" routerLink="/fleet">
+            View Our Fleet
+          </button>
+          <button class="btn btn-secondary-custom btn-lg" routerLink="/booking">
+            Book Now
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

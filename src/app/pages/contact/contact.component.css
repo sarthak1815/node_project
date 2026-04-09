@@ -1,0 +1,119 @@
+.contact-container {
+  min-height: 100vh;
+  background: var(--primary-black);
+  padding-bottom: 2rem;
+}
+
+.contact-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.contact-detail {
+  color: var(--text-light);
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.sticky-card {
+  position: sticky;
+  top: 100px;
+}
+
+.location-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.location-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(139, 47, 201, 0.1);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.location-item:hover {
+  background: rgba(139, 47, 201, 0.2);
+  transform: translateX(5px);
+}
+
+.location-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.location-info h6 {
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.social-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary-purple), var(--primary-orange));
+  border-radius: 50%;
+  font-size: 1.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 8px 20px rgba(139, 47, 201, 0.4);
+}
+
+.success-icon {
+  font-size: 5rem;
+  animation: bounceIn 0.6s ease;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.modal.show {
+  padding-right: 0 !important;
+}
+
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+@media (max-width: 991px) {
+  .sticky-card {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-icon {
+    font-size: 2.5rem;
+  }
+  
+  .success-icon {
+    font-size: 3.5rem;
+  }
+}
